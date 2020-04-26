@@ -1,0 +1,86 @@
+<div class="field">
+    <label for="category_id">Categoria</label>
+    <select name="category_id">
+        {% for category in categories %}
+            <option 
+                value="{{ category.id }}"
+                {% if category.id == product.category_id %}
+                    selected
+                {% endif %}
+            >
+                {{ category.name }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="field">
+    <label for="name">Nome</label>
+    <input
+        type="text"
+        name="name"
+        placeholder="Digite o nome do Produto"
+        value="{{ product.name }}"
+    >
+</div>
+
+<div class="field">
+    <label for="description">Descrição</label>
+    <textarea name="description">{{ product.description }}</textarea>
+</div>
+
+{# CAMPO DE FOTO #}
+
+<div class="field">
+    <label for="price">Valor</label>
+    <input
+        type="text"
+        name="price"
+        placeholder="Preço do Produto"
+        value="{{ product.price }}"
+        onkeydown="Mask.apply(this, 'formatBRL')"
+    >
+    {% if product.old_price %}
+        <input
+            type="hidden"
+            name="old_price"
+            value="{{ product.old_price }}"
+        >
+    {% endif %}
+</div>
+
+<div class="field">
+    <label for="quantity">Quantidade</label>
+    <input
+        type="number"
+        name="quantity"
+        placeholder="Estoque Disponível"
+        value="{{ product.quantity }}"
+    >
+</div>
+
+{% if product.status == '1' or product.status == '0' %}
+    <div class="field">
+        <label for="status">Disponível</label>
+        <span>
+            <input
+                type="radio"
+                name="status"
+                value="1"
+                {% if product.status == 1 %}
+                    checked
+                {% endif %}
+            > Sim
+        </span>
+        <span>
+            <input
+                type="radio"
+                name="status"
+                value="0"
+                {% if product.status == 0 %}
+                    checked
+                {% endif %}
+            > Não
+        </span>
+    </div>
+{% endif %}
