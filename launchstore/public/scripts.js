@@ -108,3 +108,36 @@ const PhotosUpload = {
         photoDiv.remove()
     }
 }
+
+const ImageGallery = {
+    highlight: document.querySelector('.gallery .highlight > img'),
+    previews: document.querySelectorAll('.gallery-preview img'),
+    setImage(event) {
+        const { target: preview } = event
+
+        ImageGallery.previews.forEach(preview => preview.classList.remove('active'))
+
+        preview.classList.add('active')
+
+        ImageGallery.highlight.src = preview.src
+        ImageGallery.highlight.alt = preview.alt
+    }
+}
+
+const Lightbox = {
+    lightbox: document.querySelector('.gallery .highlight .lightbox'),
+    open(event) {
+        event.preventDefault()
+
+        const img = Lightbox.lightbox.querySelector('img')
+
+        img.src = event.target.src
+        img.alt = event.target.alt
+
+        Lightbox.lightbox.classList.add('active')
+    },
+    close(event) {
+        event.preventDefault()
+        Lightbox.lightbox.classList.remove('active')
+    }
+}
