@@ -29,7 +29,35 @@
     <textarea name="description">{{ product.description }}</textarea>
 </div>
 
-{# CAMPO DE FOTO #}
+<div class="field">
+    <label for="photos">Fotos (Máx 6)</label>
+    <div id="photos-upload">
+        <input
+            id="photos-input"
+            type="file"
+            name="photos"
+            multiple
+            accept="image/*"
+            onchange="PhotosUpload.handleFileInput(event)"
+        >
+        <p class="button"><i class="material-icons">add</i></p>
+    </div>
+    <div id="photos-preview">
+        {% if files %}
+            {% for file in files %}
+                <div class="photo" id="{{ file.id }}">
+                    <img src="{{ file.src }}" alt="{{ file.name }}">
+                    <i
+                        class="material-icons"
+                        onclick="PhotosUpload.removeOldPhoto(event)"
+                    >
+                        delete
+                    </i>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
 
 <div class="field">
     <label for="price">Valor</label>

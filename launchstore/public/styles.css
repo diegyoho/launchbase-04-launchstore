@@ -4,6 +4,8 @@
     --primary-color: #fd961f;
     --primary-color-dark: #c3601f;
     --secondary-color: #1fd4fd;
+    --danger-color: lightcoral;
+    --danger-color-dark: darkred;
 }
 
 * {
@@ -24,12 +26,19 @@ body {
     font-family: 'Roboto', sans-serif;
 
     background-color: #f9f9f9;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
     width: 90%;
     max-width: 940px;
     margin: 0 auto;
+}
+
+footer {
+    margin-top: auto;
 }
 
 .button {
@@ -61,11 +70,11 @@ body {
 }
 
 .button.delete {
-    background-color: lightcoral;
+    background-color: var(--danger-color);
 }
 
 .button.delete:hover {
-    background-color: darkred;
+    background-color: var(--danger-color-dark);
 }
 
 /* === HEADER === */
@@ -239,4 +248,85 @@ form .field input[type="radio"] {
     margin-top: -1px;
     margin-right: 4px;
     margin-left: -6px;
+}
+
+/* === PHOTOS UPLOAD === */
+
+form .field #photos-upload {
+    position: relative;
+
+    display: block;
+    overflow: hidden;
+
+    width: 100%;
+}
+
+form .field #photos-upload .button {
+    padding: 8px 16px;
+    margin: 0;
+}
+
+form .field #photos-upload input:hover + .button {
+    background-color: var(--primary-color-dark);
+}
+
+form .field #photos-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+
+    cursor: pointer;
+}
+
+form .field #photos-preview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+
+    width: 100%;
+    margin: 8px 0;
+}
+
+form .field #photos-preview img {
+    width: 100%;
+    height: 150px;
+
+    object-fit: cover;
+}
+
+#photos-preview .photo {
+    position: relative;
+}
+
+#photos-preview .photo i {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--danger-color);
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 500%;
+    cursor: pointer;
+
+    transition: opacity 200ms;
+
+    opacity: 0;
+}
+
+#photos-preview .photo i:hover {
+    opacity: 1;
 }

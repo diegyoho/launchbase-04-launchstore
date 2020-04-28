@@ -1,6 +1,8 @@
 const { formatPrice } = require('../../lib/utils')
+
 const Category = require('../models/Category')
 const Product = require('../models/Product')
+const File = require('../models/File')
 
 module.exports = {
     async create(req, res) {
@@ -17,8 +19,15 @@ module.exports = {
                 return res.send('Please, fill all fields!')
         }
 
+        if(req.files.length === 0) {
+            return res.send('Please, send at least 1 photo!')
+        }
+
         const results = await Product.create(req.body)
         const productId = results.rows[0].id
+
+        const filesPromise = req.files.map(file => File.create({...file, product_id: productId}))
+        await Promise.all(filesPromise)
 
         return res.redirect(`/products/${productId}/edit`)
     },
@@ -35,7 +44,13 @@ module.exports = {
         results = await Category.all()
         const categories = results.rows
 
-        return res.render('products/edit', { product, categories })
+        results = await Product.files(product.id)
+        const files = results.rows.map(file => ({
+            ...file,
+            src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
+        }))
+
+        return res.render('products/edit', { product, categories, files })
     },
     async put(req, res) {
         const keys = Object.keys(req.body)
@@ -43,6 +58,19 @@ module.exports = {
         for (const key of keys) {
             if (req.body[key] === "")
                 return res.send('Please, fill all fields!')
+        }
+
+        if(req.body.removed_files) {
+            const dbFiles = (await Product.files(req.body.id)).rows.length
+            const rmFiles = req.body.removed_files.length
+            
+            if(dbFiles <= rmFiles) {
+                return res.send('Please, send at least 1 photo!')
+            }
+
+            const removedFilesPromise = req.body.removed_files.map(id => File.delete(id))
+
+            await Promise.all(removedFilesPromise)
         }
 
         req.body.price = req.body.price.replace(/\D/g, '')
@@ -54,6 +82,9 @@ module.exports = {
         }
 
         await Product.update(req.body)
+
+        const filesPromise = req.files.map(file => File.create({...file, product_id: req.body.id}))
+        await Promise.all(filesPromise)
 
         return res.redirect(`/products/${req.body.id}/edit`)
     },
