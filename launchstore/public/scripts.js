@@ -1,6 +1,6 @@
 const Mask = {
     apply(input, mask) {
-        if( mask === 'apply')
+        if ( mask === 'apply')
             return new Error('Apply isn\'t a valid mask!')
 
         setTimeout(() => input.value = Mask[mask](input.value), 1)
@@ -24,7 +24,7 @@ const PhotosUpload = {
         const { files: filesList } = event.target
         PhotosUpload.input = event.target
 
-        if(PhotosUpload.hasLimit(filesList)) {
+        if (PhotosUpload.hasLimit(filesList)) {
             event.preventDefault()
             PhotosUpload.input.files = PhotosUpload.getAllFiles()
             return
@@ -47,7 +47,7 @@ const PhotosUpload = {
         PhotosUpload.input.files = PhotosUpload.getAllFiles()
     },
     hasLimit(filesList) {
-        if(filesList.length + PhotosUpload.files.length > PhotosUpload.uploadLimit) {
+        if (filesList.length + PhotosUpload.files.length > PhotosUpload.uploadLimit) {
             alert(`Envie no máximo ${ PhotosUpload.uploadLimit } fotos!`)
             return true
         }
@@ -95,7 +95,7 @@ const PhotosUpload = {
     removeOldPhoto(event) {
         const photoDiv = event.target.parentNode
         
-        if(photoDiv.id) {
+        if (photoDiv.id) {
             const removedFile = document.createElement('input')
             removedFile.setAttribute('type', 'hidden')
             removedFile.setAttribute('name', 'removed_files[]')

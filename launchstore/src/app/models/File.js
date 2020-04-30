@@ -32,7 +32,7 @@ module.exports = {
                 WHERE id = $1
             `, [id])
         } catch(err) {
-            throw new Error(err)
+            console.log(err)
         }
     }
 }

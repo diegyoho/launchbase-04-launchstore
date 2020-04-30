@@ -31,6 +31,12 @@
     <img alt="Exemplo" src="previews/preview-1.png" width="100%" />
 </div>
 
+#### Módulos:
+- [x] Launchstore
+- [x] Upload de Imagens
+- [x] Listando os Produtos da Launchstore
+- [ ] Cadastrando Usuários
+
 #### Tecnologias:
 - NodeJS
 - Nunjucks
