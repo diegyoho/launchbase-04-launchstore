@@ -1,7 +1,7 @@
 const Mask = {
     apply(input, mask) {
         if ( mask === 'apply')
-            return new Error('Apply isn\'t a valid mask!')
+            return new Error('apply isn\'t a valid mask!')
 
         setTimeout(() => input.value = Mask[mask](input.value), 1)
     },
@@ -12,6 +12,33 @@ const Mask = {
             style: 'currency',
             currency: 'BRL'
         }).format(value/100)
+    },
+    formatCpfCnpj(value) {
+        value = value.replace(/\D/g, '')
+
+        if(value.length > 14) value = value.slice(0, -1)
+
+        if(value.length > 11) {
+            value = value.replace(/(\d{2})(\d)/, '$1.$2')
+            value = value.replace(/(\d{3})(\d)/, '$1.$2')
+            value = value.replace(/(\d{3})(\d)/, '$1/$2')
+            value = value.replace(/(\d{4})(\d)/, '$1-$2')
+        } else {
+            value = value.replace(/(\d{3})(\d)/, '$1.$2')
+            value = value.replace(/(\d{3})(\d)/, '$1.$2')
+            value = value.replace(/(\d{3})(\d)/, '$1-$2')
+        }
+
+        return value
+    },
+    formatCEP(value) {
+        value = value.replace(/\D/g, '')
+
+        if(value.length > 8) value = value.slice(0, -1)
+
+        value = value.replace(/(\d{5})(\d)/, '$1-$2')
+
+        return value
     }
 }
 
@@ -139,5 +166,75 @@ const Lightbox = {
     close(event) {
         event.preventDefault()
         Lightbox.lightbox.classList.remove('active')
+    }
+}
+
+const Validate = {
+    apply(input, validate) {
+        Validate.clearErrors(input)
+
+        if ( validate === 'apply')
+            return new Error('apply isn\'t valid!')
+
+        const results = Validate[validate](input.value)
+        input.value = results.value
+
+        if(results.error)
+            Validate.displayError(input, results.error)
+        
+    },
+    displayError(input, error) {
+        const err = document.createElement('div')
+        err.classList.add('error')
+        err.innerHTML = error
+
+        input.classList.add('error')
+        input.parentNode.appendChild(err)
+        input.focus()
+    },
+    clearErrors(input) {
+        input.classList.remove('error')
+        const error = input.parentNode.querySelector('.error')
+
+        if(error)
+            error.remove()
+    },
+    isEmail(value) {
+        let error = null
+        const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+        
+        if(!value.match(mailFormat))
+            error = 'Email inválido!'
+
+        return {
+            error,
+            value
+        }
+    },
+    isCpfCnpj(value) {
+        let error = null
+        const cleanValues = value.replace(/\D/g, '')
+        
+        if(cleanValues.length > 11 && cleanValues.length !== 14)
+            error = 'CNPJ inválido!'
+        else if (cleanValues.length < 11)
+            error = 'CPF inválido!'
+
+        return {
+            error,
+            value
+        }
+    },
+    isCEP(value) {
+        let error = null
+        const cleanValues = value.replace(/\D/g, '')
+        
+        if (cleanValues.length < 8)
+            error = 'CEP inválido!'
+
+        return {
+            error,
+            value
+        }
     }
 }

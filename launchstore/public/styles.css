@@ -194,7 +194,7 @@ form .field label {
     
     margin-bottom: 8px;
 }
-
+form .field input,
 form .field input[type="text"],
 form .field input[type="number"],
 form .field textarea,
@@ -574,4 +574,21 @@ form .field #photos-preview img {
 .search-products nav ul li a:hover {
     color: black;
     font-weight: bold;
+}
+
+/* === USER REGISTRATION === */
+
+.user-register.form {
+    max-width: 500px;
+}
+
+.field input + .error {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--danger-color);
+    padding: 8px;
+}
+
+.field input.error {
+    outline-color: var(--danger-color);
 }

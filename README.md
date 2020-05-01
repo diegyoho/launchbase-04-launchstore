@@ -32,6 +32,12 @@
     <img alt="Exemplo" src="previews/preview-1.png" width="100%" />
 </div>
 
+##### Validações Front-end
+
+<div align="center">
+    <img alt="Exemplo" src="previews/preview-2.gif" width="100%" />
+</div>
+
 #### Módulos:
 - [x] Launchstore
 - [x] Upload de Imagens

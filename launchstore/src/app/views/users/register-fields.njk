@@ -1,0 +1,72 @@
+<div class="field">
+    <label for="name">Nome Completo</label>
+    <input
+        type="text"
+        name="name"
+        placeholder="Nome Completo"
+        value="{{ user.name }}"
+    >
+</div>
+
+<div class="field">
+    <label for="email">E-mail</label>
+    <input
+        type="email"
+        name="email"
+        placeholder="email@email.com"
+        value="{{ user.name }}"
+        onblur="Validate.apply(this, 'isEmail')"
+    >
+</div>
+
+<div class="field">
+    <label for="password">Senha</label>
+    <input
+        type="password"
+        name="password"
+    >
+</div>
+
+{% if not user.id %}
+    <div class="field">
+        <label for="confirmPassword">Confirme a Senha</label>
+        <input
+            type="password"
+            name="confirmPassword"
+        >
+    </div>
+{% endif %}
+
+<div class="field">
+    <label for="cpf_cnpj">CPF ou CNPJ</label>
+    <input
+        type="text"
+        name="cpf_cnpj"
+        placeholder="Digite o número do documento"
+        value="{{ user.cpf_cnpj }}"
+        onkeydown="Mask.apply(this, 'formatCpfCnpj')"
+        onblur="Validate.apply(this, 'isCpfCnpj')"
+    >
+</div>
+
+<div class="field">
+    <label for="cep">CEP</label>
+    <input
+        type="text"
+        name="cep"
+        placeholder="99999-999"
+        value="{{ user.cep }}"
+        onkeydown="Mask.apply(this, 'formatCEP')"
+        onblur="Validate.apply(this, 'isCEP')"
+    >
+</div>
+
+<div class="field">
+    <label for="address">Endereço</label>
+    <input
+        type="text"
+        name="address"
+        placeholder="Digite o endereço completo"
+        value="{{ user.address }}"
+    >
+</div>
