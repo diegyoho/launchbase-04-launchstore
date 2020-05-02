@@ -34,8 +34,9 @@
 
 ##### Validações Front-end
 
-
-
+<div align="center">
+    <img alt="Exemplo" src="previews/preview-2.gif?" width="100%" />
+</div>
 
 #### Módulos:
 - [x] Launchstore
