@@ -42,12 +42,13 @@
 - [x] Launchstore
 - [x] Upload de Imagens
 - [x] Listando os Produtos da Launchstore
-- [ ] Cadastrando Usuários
+- [x] Cadastrando Usuários
 
 #### Tecnologias:
 - NodeJS
+- Express
 - Nunjucks
-- PostgresSQL 
+- PostgresSQL
 
 #### Instalação:
 
