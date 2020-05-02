@@ -1,4 +1,4 @@
-const { formatPrice, date } = require('../../lib/utils')
+const { formatPrice } = require('../../lib/utils')
 
 const Product = require('../models/Product')
 
@@ -17,13 +17,15 @@ module.exports = {
             if (category)
                 params.category = category
 
-            let products = (await Product.search(params)).rows
+            let products = await Product.search(params)
 
             if (!products)
                 res.send('Products not found!')
 
             async function getImage(productId) {
-                const files = (await Product.files(productId)).rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`)
+                let files = await Product.files(productId)
+
+                files = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`)
 
                 return files[0]
             }
