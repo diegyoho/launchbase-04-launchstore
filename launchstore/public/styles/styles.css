@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
-
 :root {
     --primary-color: #fd961f;
     --primary-color-dark: #c3601f;
     --secondary-color: #1fd4fd;
     --danger-color: lightcoral;
-    --danger-color-dark: darkred;
+    --danger-color-dark: #c20000;
 }
 
 * {
@@ -582,7 +580,7 @@ form .field #photos-preview img {
     max-width: 500px;
 }
 
-.field input + .error {
+.form * + div.error {
     font-size: 14px;
     font-weight: bold;
     color: var(--danger-color);

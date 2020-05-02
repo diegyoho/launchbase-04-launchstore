@@ -57,7 +57,7 @@ module.exports = {
 
             return res.render('search/index', { products, search, categories })
         } catch(err) {
-            console.log(err)
+            console.error(err)
         }
     }
 }

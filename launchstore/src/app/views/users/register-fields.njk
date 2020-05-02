@@ -14,7 +14,7 @@
         type="email"
         name="email"
         placeholder="email@email.com"
-        value="{{ user.name }}"
+        value="{{ user.email }}"
         onblur="Validate.apply(this, 'isEmail')"
     >
 </div>
@@ -24,6 +24,8 @@
     <input
         type="password"
         name="password"
+        onkeyup="Validate.confirmPassword(this, 'confirmPassword')"
+        onblur="Validate.confirmPassword(this, 'confirmPassword')"
     >
 </div>
 
@@ -33,6 +35,8 @@
         <input
             type="password"
             name="confirmPassword"
+            onkeyup="Validate.confirmPassword(this, 'password')"
+            onblur="Validate.confirmPassword(this, 'password')"
         >
     </div>
 {% endif %}

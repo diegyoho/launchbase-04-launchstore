@@ -183,18 +183,20 @@ const Validate = {
             Validate.displayError(input, results.error)
         
     },
-    displayError(input, error) {
+    displayError(input, error, required = true) {
         const err = document.createElement('div')
         err.classList.add('error')
         err.innerHTML = error
 
         input.classList.add('error')
         input.parentNode.appendChild(err)
-        input.focus()
+
+        if(required)
+            input.focus()
     },
     clearErrors(input) {
         input.classList.remove('error')
-        const error = input.parentNode.querySelector('.error')
+        const error = input.parentNode.querySelector(':scope > .error')
 
         if(error)
             error.remove()
@@ -235,6 +237,30 @@ const Validate = {
         return {
             error,
             value
+        }
+    },
+    confirmPassword(input, nameField) {
+        Validate.clearErrors(input)
+
+        if(input.value === '') {
+            Validate.displayError(input, 'Senha não pode ser vazia!')
+            return
+        }
+        
+        const password = document.querySelector(`input[name="${nameField}"]`)
+        Validate.clearErrors(password)
+        
+        if (input.value !== password.value) {
+            input = nameField === 'confirmPassword' ? password : input
+            Validate.displayError(input, 'Senhas não correspondem!', false)
+        }
+    },
+    hasErrors(event) {
+        Validate.clearErrors(event.target)
+
+        if(document.querySelector('.field .error')) {
+            event.preventDefault()
+            Validate.displayError(event.target, 'Existem erros no formulário!', false)
         }
     }
 }

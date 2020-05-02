@@ -1,0 +1,32 @@
+@keyframes hide-message {
+    to {
+        top: -64px;
+        opacity: 0;
+    }
+}
+
+.messages {
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    
+    padding: 32px;
+    color: white;
+    font-weight: bold;
+    
+    position: absolute;
+    top: 0;
+
+    opacity: 1;
+
+    animation: hide-message 400ms 5s ease-out;
+}
+
+.messages.error {
+    background-color: var(--danger-color-dark);
+}
+
+.messages.success {
+    background-color: #2cc767;
+}

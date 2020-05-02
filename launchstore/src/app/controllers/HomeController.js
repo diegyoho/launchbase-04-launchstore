@@ -30,7 +30,7 @@ module.exports = {
 
             return res.render('home/index', { products: lastAdded })
         } catch(err) {
-            console.log(err)
+            console.error(err)
         }
     }
 }

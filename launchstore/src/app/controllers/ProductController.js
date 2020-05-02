@@ -12,7 +12,7 @@ module.exports = {
 
             return res.render('products/create', { categories })
         } catch(err) {
-            console.log(err)
+            console.error(err)
         }
     },
     async post(req, res) {
@@ -36,7 +36,7 @@ module.exports = {
 
             return res.redirect(`/products/${productId}`)
         } catch(err) {
-            console.log(err)
+            console.error(err)
         }
     },
     async show(req, res) {
@@ -65,7 +65,7 @@ module.exports = {
 
             return res.render('products/show', { product, files })
         } catch(err) {
-            console.log(err)
+            console.error(err)
         }
     },
     async edit(req, res) {
@@ -90,7 +90,7 @@ module.exports = {
 
             return res.render('products/edit', { product, categories, files })
         } catch(err) {
-            console.log(err)
+            console.error(err)
         }
     },
     async put(req, res) {
@@ -130,7 +130,7 @@ module.exports = {
 
             return res.redirect(`/products/${req.body.id}`)
         } catch(err) {
-            console.log(err)
+            console.error(err)
         }
     },
     async delete(req, res) {
@@ -139,7 +139,7 @@ module.exports = {
 
             return res.redirect(`/products/create`)
         } catch(err) {
-            console.log(err)
+            console.error(err)
         }
     }
 }

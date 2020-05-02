@@ -11,7 +11,13 @@
             {% include 'users/register-fields.njk' %}
         </div>
 
-        <button class="button" type="submit">Salvar</button>
+        <button
+            class="button"
+            type="submit"
+            onclick="Validate.hasErrors(event)"
+            onblur="Validate.clearErrors(this)"
+        >Salvar
+        </button>
     </form>
 </section>
 
