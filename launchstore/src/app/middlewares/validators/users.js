@@ -8,8 +8,10 @@ module.exports = {
             for (const key of keys) {
                 if (req.body[key] === "")
                     return res.render('users/register', {
-                        message: 'Por favor, preencha todos os campos!',
-                        messageType: 'error',
+                        message: {
+                            content: 'Por favor, preencha todos os campos!',
+                            type: 'error'
+                        },
                         user: req.body
                     })
             }
@@ -22,15 +24,19 @@ module.exports = {
     
             if (user)
                 return res.render('users/register', {
-                    message: 'Usuário já cadastrado!',
-                    messageType: 'error',
+                    message: {
+                        content: 'Usuário já cadastrado!',
+                        type: 'error'
+                    },
                     user: req.body
                 })
     
             if(password !== confirmPassword)
                 return res.render('users/register', {
-                    message: 'Senhas não correspondem!',
-                    messageType: 'error',
+                    message: {
+                        content: 'Senhas não correspondem!',
+                        type: 'error'
+                    },
                     user: req.body
                 })
     

@@ -10,8 +10,10 @@ module.exports = {
             const userId = await User.create(req.body)
 
             return res.render('users/register', {
-                message: 'Usuário cadastrado com sucesso!',
-                messageType: 'success'
+                message: {
+                    content: 'Usuário cadastrado com sucesso!',
+                    type: 'success'
+                }
             })
         } catch(err) {
             console.error(err)

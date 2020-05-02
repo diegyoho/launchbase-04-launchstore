@@ -25,7 +25,9 @@ module.exports = {
                 data.address
             ]
 
-            return (await db.query(query, values)).rows[0].id
+            const results = await db.query(query, values)
+
+            return results.rows[0].id           
         } catch(err) {
             console.error(err)
         }
@@ -45,7 +47,9 @@ module.exports = {
                 })
             })
 
-            return (await db.query(query)).rows[0]
+            const results = await db.query(query)
+
+            return results.rows[0]
         } catch(err) {
             console.error(err)
         }
