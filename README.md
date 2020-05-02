@@ -38,6 +38,7 @@
     <img alt="Exemplo" src="previews/preview-2.gif" width="100%" />
 </div>
 
+
 #### Módulos:
 - [x] Launchstore
 - [x] Upload de Imagens
