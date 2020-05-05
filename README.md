@@ -54,6 +54,7 @@
 #### Tecnologias:
 - NodeJS
 - Express
+- Nodemailer
 - Nunjucks
 - PostgresSQL
 
@@ -65,6 +66,8 @@
 ```bash
 npm install
 ```
+
+- Crie o arquivo src/lib/mailer.js, e configure o nodemailer.
 
 #### Execução:
 - Execute o seguinte comando na raiz do projeto:
