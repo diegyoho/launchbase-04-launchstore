@@ -38,11 +38,18 @@
     <img alt="Exemplo" src="previews/preview-2.gif" width="100%" />
 </div>
 
+##### Controle de sessão
+
+<div align="center">
+    <img alt="Exemplo" src="previews/preview-3.gif" width="100%" />
+</div>
+
 #### Módulos:
 - [x] Launchstore
 - [x] Upload de Imagens
 - [x] Listando os Produtos da Launchstore
 - [x] Cadastrando Usuários
+- [x] Controle da sessão de usuário
 
 #### Tecnologias:
 - NodeJS
