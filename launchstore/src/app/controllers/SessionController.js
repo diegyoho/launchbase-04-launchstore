@@ -7,8 +7,9 @@ module.exports = {
 
         return res.redirect('/users')
     },
-    logout(req, res) {
-        req.session.destroy()
+    async logout(req, res) {
+        
+        await new Promise((resolve) => req.session.destroy(() => resolve()))
 
         return res.redirect('/')
     }

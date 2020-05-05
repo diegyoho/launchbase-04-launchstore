@@ -1,5 +1,6 @@
 const express = require('express')
 const routes = express.Router()
+const { isAuthenticated, onlyAuthenticated } = require('../app/middlewares/session')
 
 const UserController = require('../app/controllers/UserController')
 const SessionController = require('../app/controllers/SessionController')
@@ -8,7 +9,7 @@ const UserValidators = require('../app/middlewares/validators/users')
 const SessionValidators = require('../app/middlewares/validators/session')
 
 // LOGIN/LOGOUT
-routes.get('/login', SessionController.loginForm)
+routes.get('/login', isAuthenticated, SessionController.loginForm)
 routes.post('/login', SessionValidators.login, SessionController.login)
 routes.post('/logout', SessionController.logout)
 
@@ -22,7 +23,7 @@ routes.post('/logout', SessionController.logout)
 routes.get('/register', UserController.registerForm)
 routes.post('/register', UserValidators.post, UserController.post)
 
-routes.get('/', UserValidators.show, UserController.show)
+routes.get('/', onlyAuthenticated, UserValidators.show, UserController.show)
 routes.put('/', UserValidators.update, UserController.update)
 // routes.delete('/', UserController.delete)
 
