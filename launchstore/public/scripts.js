@@ -248,11 +248,14 @@ const Validate = {
         }
         
         const password = document.querySelector(`input[name="${nameField}"]`)
-        Validate.clearErrors(password)
         
-        if (input.value !== password.value) {
-            input = nameField === 'confirmPassword' ? password : input
-            Validate.displayError(input, 'Senhas não correspondem!', false)
+        if(password) {
+            Validate.clearErrors(password)
+        
+            if (input.value !== password.value) {
+                input = nameField === 'confirmPassword' ? password : input
+                Validate.displayError(input, 'Senhas não correspondem!', false)
+            }
         }
     },
     hasErrors(event) {

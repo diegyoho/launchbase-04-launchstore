@@ -13,5 +13,6 @@ routes.use('/products', products)
 
 // ALIAS
 routes.get('/ads/create', (req, res) => res.redirect('/products/create'))
+routes.get('/accounts', (req, res) => res.redirect('/users/login'))
 
 module.exports = routes

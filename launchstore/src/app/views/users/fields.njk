@@ -26,6 +26,9 @@
         name="password"
         onkeyup="Validate.confirmPassword(this, 'confirmPassword')"
         onblur="Validate.confirmPassword(this, 'confirmPassword')"
+        {% if user.id %}
+            placeholder="Digite sua senha para atualizar!"
+        {% endif %}
     >
 </div>
 

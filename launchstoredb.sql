@@ -1,6 +1,8 @@
 DROP DATABASE IF EXISTS launchstoredb;
 CREATE DATABASE launchstoredb;
 
+-- TABLES
+
 CREATE TABLE "products" (
   "id" SERIAL PRIMARY KEY,
   "category_id" int NOT NULL,
@@ -43,11 +45,15 @@ CREATE TABLE "users" (
   "updated_at" timestamp DEFAULT (now())
 );
 
+-- RELATIONSHIPS
+
 ALTER TABLE "products" ADD FOREIGN KEY ("category_id") REFERENCES "categories" ("id");
 
 ALTER TABLE "products" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "files" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+
+-- TRIGGERS
 
 CREATE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
@@ -77,6 +83,8 @@ BEFORE UPDATE ON "users"
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
+-- SEED
+
 INSERT INTO categories(name) VALUES ('Eletrônicos');
 INSERT INTO categories(name) VALUES ('Brinquedos');
 INSERT INTO categories(name) VALUES ('Livros');
@@ -84,3 +92,16 @@ INSERT INTO categories(name) VALUES ('Comida');
 INSERT INTO categories(name) VALUES ('Automóveis');
 INSERT INTO categories(name) VALUES ('Imóveis');
 INSERT INTO categories(name) VALUES ('Vestuário');
+
+-- SESSION: CONNECT PG SIMPLE
+
+CREATE TABLE "session" (
+  "sid" varchar NOT NULL COLLATE "default",
+	"sess" json NOT NULL,
+	"expire" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE);
+
+ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+CREATE INDEX "IDX_session_expire" ON "session" ("expire");
