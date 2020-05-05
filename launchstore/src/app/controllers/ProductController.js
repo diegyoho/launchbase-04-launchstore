@@ -23,6 +23,8 @@ module.exports = {
                     return res.send('Please, fill all fields!')
             }
 
+            req.body.user_id = req.session.userId
+
             const productId = await Product.create(req.body)
 
             const filesPromise = req.files.map(async file => await File.create({...file, product_id: productId}))

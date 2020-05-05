@@ -63,5 +63,30 @@ module.exports = {
                 }
             })
         }
+    },
+    async delete(req, res) {
+        try {
+
+            await User.delete(req.body.id)
+            req.session.userId = null
+            await new Promise((resolve) => req.session.destroy(() => resolve()))
+
+            return res.render('session/login', {
+                message: {
+                    content: 'Conta excluída com sucesso!',
+                    type: 'success'
+                }
+            })
+        } catch(err) {
+            console.error(err)
+
+            return res.render('users/index', {
+                user: req.body,
+                message: {
+                    content: 'Erro no sistema!',
+                    type: 'error'
+                }
+            })
+        }
     }
 }

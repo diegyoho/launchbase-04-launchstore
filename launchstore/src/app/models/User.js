@@ -1,5 +1,8 @@
 const db = require('../../config/db')
 const { hash } = require('bcryptjs')
+const fs = require('fs')
+
+const Product = require('./Product')
 
 module.exports = {
     async create(data) {
@@ -55,21 +58,64 @@ module.exports = {
         }
     },
     async update(id, fields) {
-        let query = `UPDATE users SET`
+        try {
+            let query = `UPDATE users SET`
 
-        Object.keys(fields).map((key, index, array) => {
-            if((index + 1) < array.length) {
-                query = `${query}
-                    ${key} = '${fields[key]}',
-                `
-            } else {
-                query = `${query}
-                    ${key} = '${fields[key]}'
-                    WHERE id = ${id}
-                `
-            }
-        })
+            Object.keys(fields).map((key, index, array) => {
+                if((index + 1) < array.length) {
+                    query = `${query}
+                        ${key} = '${fields[key]}',
+                    `
+                } else {
+                    query = `${query}
+                        ${key} = '${fields[key]}'
+                        WHERE id = ${id}
+                    `
+                }
+            })
 
-        return await db.query(query)
+            return await db.query(query)
+        } catch(err) {
+            console.error(err)
+        }
+    },
+    async products(id) {
+        try {
+            const results = await db.query(`
+                SELECT * FROM products
+                WHERE user_id = $1
+            `, [id])
+
+            return results.rows
+        } catch(err) {
+            console.error(err)
+        }
+    },
+    async delete(id) {
+        try {
+
+            const products = await this.products(id)
+
+            const filesPromise = products.map(product => Product.files(product.id))
+
+            const productsFiles = await Promise.all(filesPromise)
+            
+            console.log(productsFiles)
+            
+            productsFiles.map(product => product.map(file => {
+                try {    
+                    fs.unlinkSync(file.path)
+                } catch(err) {
+                    console.error(err)
+                }
+            }))
+
+            return await db.query(`
+                DELETE FROM users
+                WHERE id = $1
+            `, [id])
+        } catch(err) {
+            console.error(err)
+        }
     }
 }
